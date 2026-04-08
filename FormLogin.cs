@@ -12,6 +12,7 @@ namespace SistemaDeLogin
 {
     public partial class FormLogin : Form
     {
+        public static bool Cancelar = false;
         public FormLogin()
         {
             InitializeComponent();
@@ -19,12 +20,29 @@ namespace SistemaDeLogin
 
         private void btnSenha_Click(object sender, EventArgs e)
         {
+            string nome = textUsuario.Text;
+            string senha = textSenha.Text;
 
+            if (CadastroUsuario.login(nome, senha))
+            {
+                this.Close();
+
+            }
+            else 
+            {
+                MessageBox.Show("Acesso Negado!");
+                textUsuario.Text = "";
+                textSenha.Text = "";
+                textUsuario.Focus();
+                textSenha.Focus();
+                this.Close();
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            Cancelar = true;
+            Close();
         }
     }
 }
